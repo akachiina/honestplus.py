@@ -56,7 +56,7 @@ An unofficial async Python wrapper for the [Honest+](https://honest.plus) API, i
 ## Installation
 
 ```bash
-pip install git+https://github.com/user/honestplus.py.git
+pip install git+https://github.com/akachiina/honestplus.py.git
 ```
 
 Dependencies (`aiohttp` and `Pillow`) are installed automatically.
