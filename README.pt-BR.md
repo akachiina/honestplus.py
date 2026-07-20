@@ -1,6 +1,19 @@
 # honestplus.py
 
-> ⚠️ **Aviso:** Este projeto é para fins **educacionais apenas**. O autor não se responsabiliza por qualquer uso indevido, violação dos Termos de Serviço ou danos decorrentes do uso desta biblioteca. Use por sua conta e risco.
+<div align="center">
+  <b>🌐 Idioma</b>
+  <table>
+    <tr>
+      <td align="center"><a href="README.md">🇺🇸 English</a></td>
+      <td align="center"><a href="README.pt-BR.md">🇧🇷 Português</a></td>
+    </tr>
+  </table>
+</div>
+
+---
+
+> [!CAUTION]
+> Este projeto é para fins **educacionais apenas**. O autor não se responsabiliza por qualquer uso indevido, violação dos Termos de Serviço ou danos decorrentes do uso desta biblioteca. Use por sua conta e risco.
 
 ## Sumário
 
