@@ -56,7 +56,7 @@ Wrapper não oficial e assíncrono em Python para a API do [Honest+](https://hon
 ## Instalação
 
 ```bash
-pip install git+https://github.com/user/honestplus.py.git
+pip install git+https://github.com/akachiina/honestplus.py.git
 ```
 
 As dependências (`aiohttp` e `Pillow`) são instaladas automaticamente.
