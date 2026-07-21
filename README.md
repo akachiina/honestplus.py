@@ -20,7 +20,7 @@
 - [About](#about)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-- [Getting the Token](#getting-the-token)
+- [Getting the Token](#jwt-token-recommended)
 - [Usage Examples](#usage-examples)
   - [Account Registration](#account-registration)
   - [Creating a Post](#creating-a-post)
