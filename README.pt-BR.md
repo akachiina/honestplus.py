@@ -402,6 +402,8 @@ Os métodos `login_google()`, `register_google()` e `login_facebook()` existem n
 | `get_friends_feed(limit)` | `AsyncIterator[Post]` | Feed de amigos |
 | `get_following_feed(limit)` | `AsyncIterator[Post]` | Feed de quem você segue |
 | `search_posts(query, limit)` | `List[Post]` | Buscar posts |
+| `follow_post(post_uuid)` | `None` | Seguir um post (receber notificações de comentários) |
+| `unfollow_post(post_uuid)` | `None` | Deixar de seguir um post |
 | `upload_photo(file_path, media_type)` | `str` | Upload de mídia, retorna UUID |
 | `create_story(media_uuid, items)` | `Story` | Criar um story |
 | `get_story_feed()` | `List[Story]` | Feed de stories |

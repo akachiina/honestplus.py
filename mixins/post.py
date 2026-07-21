@@ -267,3 +267,21 @@ class PostMixin:
             f"/post/{post_uuid}/comments/{comment_uuid}/report",
             json={"reason": reason}
         )
+
+    async def follow_post(self, post_uuid: str) -> None:
+        """
+        Follow a post to receive notifications for new comments
+
+        Args:
+            post_uuid: UUID of the post to follow
+        """
+        await self.http.put(f"/post/{post_uuid}/follow")
+
+    async def unfollow_post(self, post_uuid: str) -> None:
+        """
+        Unfollow a post to stop receiving notifications
+
+        Args:
+            post_uuid: UUID of the post to unfollow
+        """
+        await self.http.delete(f"/post/{post_uuid}/follow")
