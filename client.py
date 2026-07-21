@@ -74,7 +74,7 @@ class Client(
             language: Language / server selector (default: "en").
                      Determines which content server the user sees:
                      "en" = English server, "pt" = Brazilian server,
-                     "es" = Spanish server, etc.
+                     "es" = Spanish-language server, etc.
             platform: Platform identifier (default: "android")
             version: App version (default: "90")
         """

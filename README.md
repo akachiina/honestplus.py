@@ -68,7 +68,7 @@ Dependencies (`aiohttp` and `Pillow`) are installed automatically.
 import honestplus
 import asyncio
 
-# language selects the content server: "en" (default), "pt" (Brazil), "es" (Spain), etc.
+# language selects the content server: "en" (default), "pt" (Brazil), "es" (Spanish), etc.
 client = honestplus.Client(token="your_jwt_token", language="pt")
 
 @client.event
@@ -356,16 +356,29 @@ async def on_comment(notification):
 
 Start polling with `await client.start(poll_interval=15.0)`.
 
-## Getting the Token
+## Authentication
 
-To use this library you need a valid JWT token from the Honest+ app. Here's one way to obtain it:
+### JWT Token (recommended)
+
+The only practical way to use this wrapper. Pass the token directly when creating the client:
+
+```python
+client = honestplus.Client(token="your_jwt_token")
+```
+
+To get the token:
 
 1. Set up an Android emulator with root access on your PC
 2. Install [HTTP Toolkit](https://httptoolkit.com/) to intercept HTTP traffic
 3. Open the Honest+ app in the emulator
 4. Capture the requests and copy the `Authorization: Bearer <token>` header value
 
-> ⚠️ Treat your token as a secret. Do not share it publicly.
+> [!CAUTION]
+> Treat your token as a secret. Do not share it publicly.
+
+### Google / Facebook OAuth (for reference only)
+
+The methods `login_google()`, `register_google()`, and `login_facebook()` exist in the wrapper because the API supports them, but **they cannot be used** from this library. The OAuth flow requires the Google/Facebook client ID configured in the Honest+ Android app, which is tied to the app's signing key and cannot be replicated externally. These methods are kept for API completeness only.
 
 ## API Reference
 

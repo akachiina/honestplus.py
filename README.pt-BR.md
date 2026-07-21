@@ -68,7 +68,7 @@ As dependências (`aiohttp` e `Pillow`) são instaladas automaticamente.
 import honestplus
 import asyncio
 
-# language seleciona o servidor de conteúdo: "en" (padrão), "pt" (Brasil), "es" (Espanha), etc.
+# language seleciona o servidor de conteúdo: "en" (padrão), "pt" (Brasil), "es" (Espanhol), etc.
 client = honestplus.Client(token="seu_token_jwt", language="pt")
 
 @client.event
@@ -356,16 +356,29 @@ async def on_comment(notification):
 
 Inicie o polling com `await client.start(poll_interval=15.0)`.
 
-## Obtendo o Token
+## Autenticação
 
-Para usar esta biblioteca você precisa de um token JWT válido do app Honest+. Uma forma de obtê-lo:
+### Token JWT (recomendado)
+
+A única forma prática de usar esta biblioteca. Passe o token diretamente ao criar o client:
+
+```python
+client = honestplus.Client(token="seu_token_jwt")
+```
+
+Para obter o token:
 
 1. Instale um emulador Android com acesso root no seu PC
 2. Instale o [HTTP Toolkit](https://httptoolkit.com/) para interceptar o tráfego HTTP
 3. Abra o app Honest+ no emulador
 4. Capture as requisições e copie o valor do header `Authorization: Bearer <token>`
 
-> ⚠️ Trate seu token como um segredo. Não o compartilhe publicamente.
+> [!CAUTION]
+> Trate seu token como um segredo. Não o compartilhe publicamente.
+
+### Google / Facebook OAuth (apenas para referência)
+
+Os métodos `login_google()`, `register_google()` e `login_facebook()` existem na biblioteca porque a API os suporta, mas **não podem ser usados** a partir daqui. O fluxo OAuth requer o client ID do Google/Facebook configurado no app Android do Honest+, que está vinculado à chave de assinatura do app e não pode ser replicado externamente. Esses métodos são mantidos apenas para completude da API.
 
 ## Referência da API
 
