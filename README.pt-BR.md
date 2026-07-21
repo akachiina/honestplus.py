@@ -401,6 +401,9 @@ Para usar esta biblioteca você precisa de um token JWT válido do app Honest+. 
 | `send_question(text, category, anonymous)` | `None` | Enviar uma pergunta |
 | `delete_profile_data(posts, comments, stories)` | `None` | Deletar posts/comentários/stories em massa |
 | `delete_account()` | `None` | Deletar conta permanentemente |
+| `discover_users()` | `List[User]` | Sugestões de usuários no Discover |
+| `discover_questions()` | `List[dict]` | Perguntas em alta no Discover |
+| `discover_stories()` | `List[Story]` | Stories populares no Discover |
 
 ### Models
 

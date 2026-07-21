@@ -401,6 +401,9 @@ To use this library you need a valid JWT token from the Honest+ app. Here's one 
 | `send_question(text, category, anonymous)` | `None` | Send a question |
 | `delete_profile_data(posts, comments, stories)` | `None` | Delete posts/comments/stories in bulk |
 | `delete_account()` | `None` | Permanently delete account |
+| `discover_users()` | `List[User]` | User suggestions from Discover |
+| `discover_questions()` | `List[dict]` | Hot questions from Discover |
+| `discover_stories()` | `List[Story]` | Popular stories from Discover |
 
 ### Models
 

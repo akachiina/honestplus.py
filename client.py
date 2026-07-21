@@ -19,6 +19,7 @@ from .mixins.chat import ChatMixin
 from .mixins.notification import NotificationMixin
 from .mixins.media import MediaMixin
 from .mixins.question import QuestionMixin
+from .mixins.discover import DiscoverMixin
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ class Client(
     NotificationMixin,
     MediaMixin,
     QuestionMixin,
+    DiscoverMixin,
 ):
     """
     Main client for interacting with Honest+ API

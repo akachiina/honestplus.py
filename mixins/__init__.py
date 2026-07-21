@@ -13,6 +13,7 @@ from .chat import ChatMixin
 from .notification import NotificationMixin
 from .media import MediaMixin
 from .question import QuestionMixin
+from .discover import DiscoverMixin
 
 __all__ = [
     "AuthMixin",
@@ -24,4 +25,5 @@ __all__ = [
     "NotificationMixin",
     "MediaMixin",
     "QuestionMixin",
+    "DiscoverMixin",
 ]

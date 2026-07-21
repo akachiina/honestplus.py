@@ -275,17 +275,3 @@ class AuthMixin:
             "selected" (list of the user's currently selected interests)
         """
         return await self.http.get("/interests")
-
-    async def discover_users(self):
-        """
-        Discover users with similar interests
-
-        Returns:
-            List of User objects
-        """
-        response = await self.http.get("/discover/users")
-
-        if not response:
-            return []
-
-        return [User(u, self) for u in response]
