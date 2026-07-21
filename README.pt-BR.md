@@ -378,7 +378,6 @@ Para usar esta biblioteca você precisa de um token JWT válido do app Honest+. 
 | `login_facebook(facebook_token, device_id, name)` | `User` | Login com Facebook OAuth |
 | `check_nick(nick)` | `bool` | Verificar se um nick está disponível |
 | `get_interests()` | `dict` | Buscar interesses disponíveis e selecionados |
-| `discover_users()` | `List[User]` | Descobrir usuários com interesses similares |
 | `logout()` | `None` | Encerrar sessão |
 | `get_profile(nick)` | `Profile` | Ver perfil de um usuário |
 | `get_user_config()` | `dict` | Ver configurações (notificações, privacidade, etc.) |

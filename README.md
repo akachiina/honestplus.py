@@ -378,7 +378,6 @@ To use this library you need a valid JWT token from the Honest+ app. Here's one 
 | `login_facebook(facebook_token, device_id, name)` | `User` | Login with Facebook OAuth |
 | `check_nick(nick)` | `bool` | Check if a nickname is available |
 | `get_interests()` | `dict` | Get available and selected interests |
-| `discover_users()` | `List[User]` | Discover users with similar interests |
 | `logout()` | `None` | Logout current session |
 | `get_profile(nick)` | `Profile` | Get a user's profile |
 | `get_user_config()` | `dict` | Get user settings (notifications, privacy, etc.) |
