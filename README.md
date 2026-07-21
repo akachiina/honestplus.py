@@ -440,7 +440,7 @@ The methods `login_google()`, `register_google()`, and `login_facebook()` exist 
 |---|---|
 | `ReactionType` | `LIKE`, `DISLIKE`, `NEUTRAL` |
 | `PostVisibility` | `PUBLIC`, `PRIVATE`, `FOLLOWERS` |
-| `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST`, `FOTO` |
+| `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `FOTO` |
 | `Gender` | `MAN`, `WOMAN`, `OTHER` |
 | `NotificationType` | `FOLLOW`, `COMMENT`, `REPLY`, `MENTION`, `POST_REACTION`, `QUESTION`, `ANSWER`, `CHAT_MESSAGE` |
 

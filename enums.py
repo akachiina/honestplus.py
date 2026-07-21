@@ -38,7 +38,6 @@ class MediaType(str, Enum):
     HEADER = "header"
     CHAT = "chat"
     STORY = "story"
-    POST = "post"
     FOTO = "foto"
 
 
