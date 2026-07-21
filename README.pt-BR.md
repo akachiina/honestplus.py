@@ -405,6 +405,7 @@ Os métodos `login_google()`, `register_google()` e `login_facebook()` existem n
 | `follow_post(post_uuid)` | `None` | Seguir um post (receber notificações de comentários) |
 | `unfollow_post(post_uuid)` | `None` | Deixar de seguir um post |
 | `upload_photo(file_path, media_type)` | `str` | Upload de mídia, retorna UUID |
+| `add_to_gallery(media_uuid)` | `None` | Adicionar foto à galeria do perfil |
 | `create_story(media_uuid, items)` | `Story` | Criar um story |
 | `get_story_feed()` | `List[Story]` | Feed de stories |
 | `get_chats()` | `List[Chat]` | Listar todos os chats |
@@ -423,7 +424,7 @@ Os métodos `login_google()`, `register_google()` e `login_facebook()` existem n
 
 | Model | Atributos Principais |
 |---|---|
-| `User` | `uuid`, `name`, `nick`, `photo`, `photo_url` |
+| `User` | `uuid`, `name`, `nick`, `profile_photo`, `profile_photo_url` |
 | `Profile` | `user`, `description`, `followers`, `following`, `is_following`, `interests` |
 | `Post` | `uuid`, `user`, `text`, `type`, `likes`, `dislikes`, `comments`, `media_url` |
 | `Comment` | `uuid`, `user`, `text`, `likes`, `dislikes`, `reply_to_uuid` |
@@ -439,7 +440,7 @@ Os métodos `login_google()`, `register_google()` e `login_facebook()` existem n
 |---|---|
 | `ReactionType` | `LIKE`, `DISLIKE`, `NEUTRAL` |
 | `PostVisibility` | `PUBLIC`, `PRIVATE`, `FOLLOWERS` |
-| `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST` |
+| `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST`, `FOTO` |
 | `Gender` | `MAN`, `WOMAN`, `OTHER` |
 | `NotificationType` | `FOLLOW`, `COMMENT`, `REPLY`, `MENTION`, `POST_REACTION`, `QUESTION`, `ANSWER`, `CHAT_MESSAGE` |
 

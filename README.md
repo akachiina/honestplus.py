@@ -405,6 +405,7 @@ The methods `login_google()`, `register_google()`, and `login_facebook()` exist 
 | `follow_post(post_uuid)` | `None` | Follow a post (get comment notifications) |
 | `unfollow_post(post_uuid)` | `None` | Unfollow a post |
 | `upload_photo(file_path, media_type)` | `str` | Upload media, returns UUID |
+| `add_to_gallery(media_uuid)` | `None` | Add photo to profile gallery |
 | `create_story(media_uuid, items)` | `Story` | Create a story |
 | `get_story_feed()` | `List[Story]` | Get story feed |
 | `get_chats()` | `List[Chat]` | List all chats |
@@ -423,7 +424,7 @@ The methods `login_google()`, `register_google()`, and `login_facebook()` exist 
 
 | Model | Key Attributes |
 |---|---|
-| `User` | `uuid`, `name`, `nick`, `photo`, `photo_url` |
+| `User` | `uuid`, `name`, `nick`, `profile_photo`, `profile_photo_url` |
 | `Profile` | `user`, `description`, `followers`, `following`, `is_following`, `interests` |
 | `Post` | `uuid`, `user`, `text`, `type`, `likes`, `dislikes`, `comments`, `media_url` |
 | `Comment` | `uuid`, `user`, `text`, `likes`, `dislikes`, `reply_to_uuid` |
@@ -439,7 +440,7 @@ The methods `login_google()`, `register_google()`, and `login_facebook()` exist 
 |---|---|
 | `ReactionType` | `LIKE`, `DISLIKE`, `NEUTRAL` |
 | `PostVisibility` | `PUBLIC`, `PRIVATE`, `FOLLOWERS` |
-| `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST` |
+| `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST`, `FOTO` |
 | `Gender` | `MAN`, `WOMAN`, `OTHER` |
 | `NotificationType` | `FOLLOW`, `COMMENT`, `REPLY`, `MENTION`, `POST_REACTION`, `QUESTION`, `ANSWER`, `CHAT_MESSAGE` |
 

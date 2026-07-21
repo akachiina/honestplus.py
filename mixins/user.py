@@ -348,3 +348,15 @@ class UserMixin:
     async def delete_account(self) -> None:
         """Delete the current user's account permanently"""
         await self.http.delete("/user/me/profile")
+
+    async def add_to_gallery(self, media_uuid: str) -> None:
+        """
+        Add an uploaded photo to the profile gallery
+
+        Args:
+            media_uuid: Media UUID from upload_photo (with media_type="foto")
+        """
+        await self.http.post(
+            "/user/me/photo",
+            json={"mediaId": media_uuid}
+        )

@@ -39,6 +39,7 @@ class MediaType(str, Enum):
     CHAT = "chat"
     STORY = "story"
     POST = "post"
+    FOTO = "foto"
 
 
 class PostType(str, Enum):

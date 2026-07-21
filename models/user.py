@@ -31,9 +31,9 @@ class User:
         self.uuid: str = data.get("uuid")
         self.name: str = data.get("name")
         self.nick: str = data.get("nick")
-        self.photo: Optional[str] = data.get("photo")
+        self.profile_photo: Optional[str] = data.get("photo")
         self.is_admin: bool = data.get("isAdmin", False)
-        
+
         # Parse last_story timestamp
         last_story = data.get("lastStory")
         self.last_story: Optional[datetime] = None
@@ -42,20 +42,20 @@ class User:
                 self.last_story = datetime.fromisoformat(last_story.replace("Z", "+00:00"))
             except:
                 pass
-                
+
     def __repr__(self):
         return f"<User uuid={self.uuid} nick={self.nick} name={self.name}>"
-        
+
     def __str__(self):
         return f"{self.name} (@{self.nick})"
-        
+
     @property
-    def photo_url(self) -> Optional[str]:
-        """Get the full URL for user's photo"""
-        if self.photo:
-            return f"https://honest.nyc3.digitaloceanspaces.com/{self.uuid}/p/{self.photo}.jpg"
+    def profile_photo_url(self) -> Optional[str]:
+        """Get the full URL for the profile photo"""
+        if self.profile_photo:
+            return f"https://honest.nyc3.digitaloceanspaces.com/{self.uuid}/p/{self.profile_photo}.jpg"
         return None
-        
+
     async def follow(self) -> None:
         """Follow this user"""
         await self._client.http.post(f"/follow/{self.uuid}")
@@ -119,8 +119,8 @@ class Profile:
         self.networks: List[dict] = data.get("networks", [])
         self.highlights: List[dict] = data.get("highlights", [])
         
-        # Photos with timestamps
-        self.photos: List[dict] = []
+        # Gallery photos with timestamps
+        self.gallery_photos: List[dict] = []
         for photo in data.get("photos", []):
             photo_data = {
                 "uuid": photo.get("uuid"),
@@ -132,7 +132,7 @@ class Profile:
                     photo_data["created_at"] = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
                 except:
                     pass
-            self.photos.append(photo_data)
+            self.gallery_photos.append(photo_data)
             
     def __repr__(self):
         return f"<Profile user={self.user.nick} followers={self.followers} following={self.following}>"
@@ -172,7 +172,7 @@ class Profile:
             List of dicts with 'uuid', 'created_at', 'url', and 'thumbnail_url'
         """
         urls = []
-        for photo in self.photos:
+        for photo in self.gallery_photos:
             urls.append({
                 'uuid': photo.get('uuid'),
                 'created_at': photo.get('created_at'),
