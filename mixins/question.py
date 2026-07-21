@@ -157,7 +157,7 @@ class QuestionMixin:
         Args:
             question_uuid: UUID of the question to delete
         """
-        await self.http.delete(f"/question/{question_uuid}")
+        await self.http.delete(f"/ask/{question_uuid}")
 
     async def get_ask_questions(self) -> List[dict]:
         """

@@ -234,7 +234,7 @@ class UserMixin:
         Yields:
             Post objects
         """
-        response = await self.http.get(f"/user/{user_uuid}/posts")
+        response = await self.http.get(f"/post/feed/profile/{user_uuid}")
 
         if not response:
             return
