@@ -22,6 +22,7 @@
 - [Início Rápido](#início-rápido)
 - [Obtendo o Token](#obtendo-o-token)
 - [Exemplos de Uso](#exemplos-de-uso)
+  - [Criação de Conta](#criação-de-conta)
   - [Criando um Post](#criando-um-post)
   - [Enquetes](#enquetes)
   - [Lendo o Feed](#lendo-o-feed)
@@ -67,7 +68,8 @@ As dependências (`aiohttp` e `Pillow`) são instaladas automaticamente.
 import honestplus
 import asyncio
 
-client = honestplus.Client(token="seu_token_jwt")
+# language seleciona o servidor de conteúdo: "en" (padrão), "pt" (Brasil), "es" (Espanha), etc.
+client = honestplus.Client(token="seu_token_jwt", language="pt")
 
 @client.event
 async def on_ready():
@@ -80,6 +82,49 @@ asyncio.run(main())
 ```
 
 ## Exemplos de Uso
+
+### Criação de Conta
+
+```python
+import honestplus
+from honestplus import Client, Gender
+
+async with Client() as client:
+    # Passo 1: Tentar login com Google
+    result = await client.login_google(
+        google_token="token_jwt_google_oauth",
+        device_id="identificador_dispositivo",
+    )
+
+    if result.not_found:
+        # Conta não existe — API sugeriu um nick
+        print(f"Nick sugerido: {result.nick}")
+
+        # Passo 2: Verificar se o nick está disponível
+        available = await client.check_nick("meunick")
+
+        # Passo 3: Registrar a nova conta
+        user = await client.register_google(
+            google_token="token_jwt_google_oauth",
+            device_id="identificador_dispositivo",
+            name="Meu Nome",
+            nick="meunick",
+            gender=Gender.MAN.value,
+            birthday="2000-01-15T00:00:00.000",
+        )
+    else:
+        # Conta existe — já está logado
+        print(f"Bem-vindo de volta, {result.user.name}!")
+
+    # Passo 4: Buscar interesses disponíveis e configurar perfil
+    interests = await client.get_interests()
+    await client.update_profile(interests=["politics", "music"])
+
+    # Passo 5: Descobrir usuários com interesses similares
+    users = await client.discover_users()
+    for u in users:
+        print(f"{u.name} (@{u.nick})")
+```
 
 ### Criando um Post
 
@@ -328,10 +373,16 @@ Para usar esta biblioteca você precisa de um token JWT válido do app Honest+. 
 
 | Método | Retorna | Descrição |
 |---|---|---|
-| `login_google(google_token, device_id, name)` | `User` | Login com Google OAuth |
+| `login_google(google_token, device_id, name)` | `LoginResult` | Login com Google OAuth (retorna `logged` ou `notFound`) |
+| `register_google(google_token, device_id, name, nick, ...)` | `User` | Registrar nova conta com Google OAuth |
 | `login_facebook(facebook_token, device_id, name)` | `User` | Login com Facebook OAuth |
+| `check_nick(nick)` | `bool` | Verificar se um nick está disponível |
+| `get_interests()` | `dict` | Buscar interesses disponíveis e selecionados |
+| `discover_users()` | `List[User]` | Descobrir usuários com interesses similares |
 | `logout()` | `None` | Encerrar sessão |
 | `get_profile(nick)` | `Profile` | Ver perfil de um usuário |
+| `get_user_config()` | `dict` | Ver configurações (notificações, privacidade, etc.) |
+| `update_user_config(...)` | `None` | Atualizar configurações do usuário |
 | `update_profile(...)` | `None` | Atualizar seu perfil |
 | `create_post(text, visibility, post_type)` | `Post` | Criar um novo post |
 | `get_post(post_uuid)` | `Post` | Buscar um post por UUID |
@@ -348,6 +399,8 @@ Para usar esta biblioteca você precisa de um token JWT válido do app Honest+. 
 | `get_notifications(limit)` | `AsyncIterator[Notification]` | Todas as notificações |
 | `search_users(query, limit)` | `List[User]` | Buscar usuários |
 | `send_question(text, category, anonymous)` | `None` | Enviar uma pergunta |
+| `delete_profile_data(posts, comments, stories)` | `None` | Deletar posts/comentários/stories em massa |
+| `delete_account()` | `None` | Deletar conta permanentemente |
 
 ### Models
 
@@ -370,6 +423,7 @@ Para usar esta biblioteca você precisa de um token JWT válido do app Honest+. 
 | `ReactionType` | `LIKE`, `DISLIKE`, `NEUTRAL` |
 | `PostVisibility` | `PUBLIC`, `PRIVATE`, `FOLLOWERS` |
 | `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST` |
+| `Gender` | `MAN`, `WOMAN`, `OTHER` |
 | `NotificationType` | `FOLLOW`, `COMMENT`, `REPLY`, `MENTION`, `POST_REACTION`, `QUESTION`, `ANSWER`, `CHAT_MESSAGE` |
 
 ### Exceções

@@ -22,6 +22,7 @@
 - [Quick Start](#quick-start)
 - [Getting the Token](#getting-the-token)
 - [Usage Examples](#usage-examples)
+  - [Account Registration](#account-registration)
   - [Creating a Post](#creating-a-post)
   - [Polls](#polls)
   - [Reading the Feed](#reading-the-feed)
@@ -67,7 +68,8 @@ Dependencies (`aiohttp` and `Pillow`) are installed automatically.
 import honestplus
 import asyncio
 
-client = honestplus.Client(token="your_jwt_token")
+# language selects the content server: "en" (default), "pt" (Brazil), "es" (Spain), etc.
+client = honestplus.Client(token="your_jwt_token", language="pt")
 
 @client.event
 async def on_ready():
@@ -80,6 +82,49 @@ asyncio.run(main())
 ```
 
 ## Usage Examples
+
+### Account Registration
+
+```python
+import honestplus
+from honestplus import Client, Gender
+
+async with Client() as client:
+    # Step 1: Try to login with Google
+    result = await client.login_google(
+        google_token="google_oauth_jwt_token",
+        device_id="device_identifier",
+    )
+
+    if result.not_found:
+        # Account doesn't exist — API suggested a nick
+        print(f"Suggested nick: {result.nick}")
+
+        # Step 2: Check if the nick is available
+        available = await client.check_nick("meunick")
+
+        # Step 3: Register the new account
+        user = await client.register_google(
+            google_token="google_oauth_jwt_token",
+            device_id="device_identifier",
+            name="My Name",
+            nick="meunick",
+            gender=Gender.MAN.value,
+            birthday="2000-01-15T00:00:00.000",
+        )
+    else:
+        # Account exists — already logged in
+        print(f"Welcome back, {result.user.name}!")
+
+    # Step 4: Get available interests and configure profile
+    interests = await client.get_interests()
+    await client.update_profile(interests=["politics", "music"])
+
+    # Step 5: Discover users with similar interests
+    users = await client.discover_users()
+    for u in users:
+        print(f"{u.name} (@{u.nick})")
+```
 
 ### Creating a Post
 
@@ -328,10 +373,16 @@ To use this library you need a valid JWT token from the Honest+ app. Here's one 
 
 | Method | Returns | Description |
 |---|---|---|
-| `login_google(google_token, device_id, name)` | `User` | Login with Google OAuth |
+| `login_google(google_token, device_id, name)` | `LoginResult` | Login with Google OAuth (returns `logged` or `notFound`) |
+| `register_google(google_token, device_id, name, nick, ...)` | `User` | Register a new account with Google OAuth |
 | `login_facebook(facebook_token, device_id, name)` | `User` | Login with Facebook OAuth |
+| `check_nick(nick)` | `bool` | Check if a nickname is available |
+| `get_interests()` | `dict` | Get available and selected interests |
+| `discover_users()` | `List[User]` | Discover users with similar interests |
 | `logout()` | `None` | Logout current session |
 | `get_profile(nick)` | `Profile` | Get a user's profile |
+| `get_user_config()` | `dict` | Get user settings (notifications, privacy, etc.) |
+| `update_user_config(...)` | `None` | Update user settings |
 | `update_profile(...)` | `None` | Update your profile |
 | `create_post(text, visibility, post_type)` | `Post` | Create a new post |
 | `get_post(post_uuid)` | `Post` | Get a post by UUID |
@@ -348,6 +399,8 @@ To use this library you need a valid JWT token from the Honest+ app. Here's one 
 | `get_notifications(limit)` | `AsyncIterator[Notification]` | All notifications |
 | `search_users(query, limit)` | `List[User]` | Search users |
 | `send_question(text, category, anonymous)` | `None` | Send a question |
+| `delete_profile_data(posts, comments, stories)` | `None` | Delete posts/comments/stories in bulk |
+| `delete_account()` | `None` | Permanently delete account |
 
 ### Models
 
@@ -370,6 +423,7 @@ To use this library you need a valid JWT token from the Honest+ app. Here's one 
 | `ReactionType` | `LIKE`, `DISLIKE`, `NEUTRAL` |
 | `PostVisibility` | `PUBLIC`, `PRIVATE`, `FOLLOWERS` |
 | `MediaType` | `PROFILE`, `HEADER`, `CHAT`, `STORY`, `POST` |
+| `Gender` | `MAN`, `WOMAN`, `OTHER` |
 | `NotificationType` | `FOLLOW`, `COMMENT`, `REPLY`, `MENTION`, `POST_REACTION`, `QUESTION`, `ANSWER`, `CHAT_MESSAGE` |
 
 ### Exceptions

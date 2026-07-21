@@ -8,7 +8,7 @@ __version__ = "0.1.0"
 __author__ = "honestplus.py contributors"
 __license__ = "MIT"
 
-from .client import Client
+from .client import Client, LoginResult
 from .errors import (
     HonestException,
     AuthenticationError,
@@ -23,6 +23,7 @@ from .enums import (
     NotificationType,
     PostVisibility,
     MediaType,
+    Gender,
 )
 from .models.user import User, Profile
 from .models.post import Post, Comment
@@ -38,6 +39,7 @@ from .utils import (
 
 __all__ = [
     "Client",
+    "LoginResult",
     "HonestException",
     "AuthenticationError",
     "NotFoundError",
@@ -49,6 +51,7 @@ __all__ = [
     "NotificationType",
     "PostVisibility",
     "MediaType",
+    "Gender",
     "User",
     "Profile",
     "Post",

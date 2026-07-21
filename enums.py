@@ -53,3 +53,10 @@ class MessageType(str, Enum):
     TEXT = "text"
     PHOTO = "photo"
     VIDEO = "video"
+
+
+class Gender(str, Enum):
+    """User gender options"""
+    MAN = "man"
+    WOMAN = "woman"
+    OTHER = "other"
